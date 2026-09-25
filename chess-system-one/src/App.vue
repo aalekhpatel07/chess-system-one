@@ -4,6 +4,7 @@ import ChessBoard from './components/ChessBoard.vue'
 
 const systemOneConfig = ref({
   baseUrl: '/api',
+  bearerToken: undefined,
   model: 'von-latest'
 })
 
@@ -39,6 +40,13 @@ onMounted(async () => {
         type="text" 
         placeholder="http://localhost:8000" 
         v-model="systemOneConfig.baseUrl"
+      />
+      <br>
+      <label>Bearer Token: </label>
+      <input 
+        type="text" 
+        placeholder="Bearer Token" 
+        v-model="systemOneConfig.bearerToken"
       />
       <br>
       <label>Model: </label>

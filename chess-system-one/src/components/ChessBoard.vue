@@ -8,6 +8,7 @@ import 'vue3-chessboard/style.css';
 const props = defineProps<{
     systemOneServerConfig: {
         baseUrl: string,
+        bearerToken?: string,
         model?: string
     }
 }>()
@@ -97,11 +98,17 @@ async function getBestMove(fen: string, moves: {from: SquareKey, to: SquareKey}[
     // console.log("Built body", body);
 
     const url = `${props.systemOneServerConfig.baseUrl}/v1/systemone`;
+
+    const headers: any = {
+        'Content-Type': 'application/json',
+    }
+    if (props.systemOneServerConfig.bearerToken) {
+        headers['Authorization'] = `Bearer ${props.systemOneServerConfig.bearerToken}`;
+    }
+
     const response = await fetch(url, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
+        headers,
         body: JSON.stringify(body)
     })
     // console.log("Response raw", response);
